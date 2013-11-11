@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="IAB_Common.xsd" />
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_LineItemCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="MediaDetails" type="MediaDetailsType">
+    <xsd:annotation>
+      <xsd:documentation>Used to represent the complete media details of the line item being proposed or purchased.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="MediaDetailsType">
+    <xsd:sequence>
+      <xsd:element default="Unchanged" name="PlacementState">
+        <xsd:annotation>
+          <xsd:documentation>Will designate the intent of the line item communication. Potential values are Add, Modify, Delete, Unchanged (default)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Add" />
+            <xsd:enumeration value="Modify" />
+            <xsd:enumeration value="Delete" />
+            <xsd:enumeration value="Unchanged" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Name or description of placement</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDate" type="IABDateTimeType">
+        <xsd:annotation>
+          <xsd:documentation>Line item start date</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndDate" type="IABDateTimeType">
+        <xsd:annotation>
+          <xsd:documentation>Line item end date</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="AdType" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Intended to categorize the type of line item. The industry has not yet standardized categories. Some common examples are Text Ad, Standard, Rich Media, Interstitial, Streaming, Video, Mobile, Other, Non-media (production costs, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Width" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Should always be provided with display ad types. Value is in pixels.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Height" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Should always be provided with display ad types. Value is in pixels.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Targeting">
+        <xsd:annotation>
+          <xsd:documentation>No industry standards exist for communicating targeting so this flexible framework can be used for providing text representations of the targeting associated with the line item.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Audience" type="BaseTargetType">
+              <xsd:annotation>
+                <xsd:documentation>Targeting based on implicit and explicit end user properties. Examples include site usage behavior or registration properties.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="unbounded" name="Context" type="BaseTargetType">
+              <xsd:annotation>
+                <xsd:documentation>One context detail should always be provided, most likely site/property</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Delivery" type="BaseTargetType">
+              <xsd:annotation>
+                <xsd:documentation>Targeting based on the environment of delivery. Examples include time of day, browser capability, geographic location of IP address.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="OtherTarget" type="GenericTargetType">
+              <xsd:annotation>
+                <xsd:documentation>Most known targeting should fit into one of the other three categories. If not, then this category can be used.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CostMethod" type="CostMethodType">
+        <xsd:annotation>
+          <xsd:documentation>CPM, CPC, Sponsorship, etc</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UnitDetail">
+        <xsd:annotation>
+          <xsd:documentation>Type, quantity, and price of units being proposed/contracted.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:complexContent mixed="false">
+            <xsd:extension base="BaseUnit">
+              <xsd:sequence>
+                <xsd:element name="GrossPrice" type="xsd:decimal">
+                  <xsd:annotation>
+                    <xsd:documentation>Price before any agency discounts have been applied</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="NetPrice" type="xsd:decimal">
+                  <xsd:annotation>
+                    <xsd:documentation>Price after agency discount has been applied</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="RateCardPrice" type="xsd:decimal">
+                  <xsd:annotation>
+                    <xsd:documentation>Commonly available unit price equivalent to a published rate card.</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:extension>
+          </xsd:complexContent>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CostDetail" type="BaseCost" />
+      <xsd:element minOccurs="0" name="RateCardCost" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>Projected total cost of the line item if sold at rate card pricing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CapCost" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>In some scenarios, such as CPC and CPA cost methods, the parties may agree to cap the cost of the line item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsGuaranteed" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Default value is True. False would correspond to a pre-emptible line item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="IsBillable" />
+      <xsd:element minOccurs="0" ref="ZeroCost" />
+      <xsd:element minOccurs="0" name="MakegoodNotes" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Used when IsMakegood is True to reference what item(s) are being made good on.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="EstimatedShareOfVoice" type="PercentageType" />
+      <xsd:element minOccurs="0" name="PackageName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Used to unify line items that are part of a package</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Dependencies" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Notes on the dependency of this line item to other line items or order properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Notes" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>General notes oabout the media being proposed/contracted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute default="USD" name="currency" type="CurrencyCodeType" />
+  </xsd:complexType>
+  <xsd:element name="AdvertiserServingDetails" type="ServingDetailsType">
+    <xsd:annotation>
+      <xsd:documentation>Used in the proposal and Insertion Order communication, this will detail the intended ad serving and rich media approach of the advertiser/agency.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ServingDetailsType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="IntendedAdServer" type="xsd:string" />
+      <xsd:element minOccurs="0" name="IntendedRichMedia" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ServingNotes" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CreativeSpecsID" type="EntityIdType">
+    <xsd:annotation>
+      <xsd:documentation>Instead passing all of the creative specs in the XML communication, the publisher can reference a spec ID in the IAB Creative Specs Database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="BaseCreativeDetails" type="BaseCreativeDetailsType" />
+  <xsd:complexType name="BaseCreativeDetailsType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="CreativeSpecsID" />
+      <xsd:element minOccurs="0" name="ThirdPartyServingPolicy">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="NotSupported" />
+            <xsd:enumeration value="TrackingPixel" />
+            <xsd:enumeration value="FullAdTag" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="SupportedRichMedia" type="xsd:string" />
+      <xsd:element minOccurs="0" name="TagType" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ServingSurcharges" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PagePositioningNotes" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MaximumLoops" type="xsd:int" />
+      <xsd:element minOccurs="0" name="ExpandedHeight" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>In pixels.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ExpandedWidth" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>In pixels.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="AllowExpandedDirections" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MaximumFileSizes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="FileSize">
+              <xsd:annotation>
+                <xsd:documentation>Size in Kilobytes.</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:simpleContent>
+                  <xsd:extension base="xsd:int">
+                    <xsd:attribute name="fileType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:enumeration value="Rich" />
+                          <xsd:enumeration value="Image" />
+                          <xsd:enumeration value="HTML" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:attribute>
+                  </xsd:extension>
+                </xsd:simpleContent>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Notes" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="MaximumAnimationTime" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>In seconds.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="MaximumFramesPerSecond" type="xsd:int" />
+      <xsd:element minOccurs="0" name="MinimumTime" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>In seconds.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="MaximumTime" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>In seconds.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Format" type="xsd:string" />
+      <xsd:element minOccurs="0" name="IsRequiredToBePreFormatted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Default/missing is false (is not required to be pre-formatted).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="IsClickable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Default/missing is false (is not clickable).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CompanionAds" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MaximumAlternativeTextLength" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>In characters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="SoundAllowed" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MaximumCreativesPerCampaign" type="xsd:int" />
+      <xsd:element minOccurs="0" name="ImplementationNotes" type="xsd:string" />
+      <xsd:element minOccurs="0" name="CreativeSpecificationNotes" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CreativeDetails" type="CreativeDetailsType">
+    <xsd:annotation>
+      <xsd:documentation>Sub element of LineItem used by publisher to communicate the creative specs for line items in proposals.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="CreativeDetailsType">
+    <xsd:choice>
+      <xsd:element ref="CreativeSpecsID" />
+      <xsd:element name="FullDetails" type="BaseCreativeDetailsType" />
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:element name="LineItem" type="LineItemType">
+    <xsd:annotation>
+      <xsd:documentation>Represents proposal and insertion order line item details</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="LineItemType">
+    <xsd:sequence>
+      <xsd:element name="PrimaryID" type="EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>Publisher line item ID</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="OtherID" type="EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>For use by additional systems to map line-item IDs together.  Can be used for Agency and Partner IDs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="MediaDetails" />
+      <xsd:element ref="AdvertiserServingDetails">
+        <xsd:annotation>
+          <xsd:documentation>Used in the Proposal and Insertion Order communication, this will detail the intended ad serving and rich media approach of the advertiser/agency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CreativeDetails" type="CreativeDetailsType">
+        <xsd:annotation>
+          <xsd:documentation>Creative Specs details</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="IsBillable" type="xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation>Default/Missing value is True. Only need to provide if False.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

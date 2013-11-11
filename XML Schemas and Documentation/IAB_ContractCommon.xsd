@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" xmlns:q1="http://ns.iab.net" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="IAB_BillingCommon.xsd" />
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_ContractCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="ContractDetails" type="q1:ContractDetailsType">
+    <xsd:annotation>
+      <xsd:documentation>Used for terms and conditions, billing agreements, and other legal aspects of a media buy. Optional for proposals, required for insertion orders.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ContractDetailsType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="BillingInfo" type="q1:IABBillingInfoType" />
+      <xsd:element ref="q1:TermsAndConditions">
+        <xsd:annotation>
+          <xsd:documentation>Can be included inline or as a reference to an external document</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="OutClause" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MakeGoodPolicy" type="xsd:string" />
+      <xsd:element name="AgencyCommission" type="q1:DiscountType">
+        <xsd:annotation>
+          <xsd:documentation>Used to designate whether a discount is being applied according to agency commission practices. If not applicable, then this element should be provided with discount set to 0. Other types of discounts should be listed in OtherDiscount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Discount" type="q1:DiscountType">
+        <xsd:annotation>
+          <xsd:documentation>Used for discounts not related to Agency commissions. For example, volume discounts, sales incentives, etc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="TermsAndConditions">
+    <xsd:annotation>
+      <xsd:documentation>Can be included inline or as a reference to an external document</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="TermsText" type="xsd:string" />
+        <xsd:element name="TermsAttachment" type="q1:AttachmentType" />
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

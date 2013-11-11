@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation>
+		This file is a combination of several others from the HR-XML Consortium, as ammended on 2008-02 by Lon Pilot. 
+		Proper atribution is included where each type is defined. Licensing information for HR-XML components can be 
+		found in the file HRXMLlicense.txt.
+    Additional elements have been amended for the specific purpose of the IAB E-Business Standards.  All new information should be considered Copyrighted and All Rights Reserved by the Interactive Advertising Bureau.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+			Name: PersonName.xsd
+			Status: Recommendation
+			Date this version: 2007-04-15
+			Purpose: Defines the schema for PersonName
+			Author(s): Paul Kiel, Kim Bartkus, CPO Workgroup
+			Documentation: PersonName.html
+			
+			Change History:
+			2005-01
+			As per Schema Design Guidelines, all default values have been removed.
+			
+			2005-10 Kim Bartkus 
+			Removed deprecated FormattedName type attribute and changed occurrence to 1.
+			Removed deprecated Affix type attribute enumerations.
+			Added script attribute to PersonName.
+			Added AlternativeScript structure to PersonName.
+			
+			2008-02 Lon Pilot
+			Modified from HR-XML base to make FamilyName and GivenName required elements. 
+			This better fits with the requirements of the IAB eBusiness initiative.
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="PersonName" type="PersonNameType">
+    <xsd:annotation>
+      <xsd:documentation>The name of a person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="PersonNameType">
+    <xsd:annotation>
+      <xsd:documentation>The name of a person.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:annotation>
+        <xsd:documentation>
+				Contains, in one string, a fully formatted name with all of its pieces in their proper place. [BusinessRule(s): This includes all of the necessary punctuation. This de-normalized form of the name cannot be easily parsed. The use of multiple occurrences are officially deprecated in this release and will be removed in a future version. ]
+			</xsd:documentation>
+      </xsd:annotation>
+      <xsd:element minOccurs="0" name="FormattedName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Used for legal documentation or other legal purposes. Contains, in one string, a fully formatted name with all of its pieces in their proper place. This includes all of the necessary punctuation. Extension to represent the worker's name. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="LegalName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Contains the given or chosen name. Also known as a person's first name. If multiple givenNames are used, the order is implied. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" name="GivenName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Contains the chosen name by which the person prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="PreferredGivenName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Contains a person's middle name or initial. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="MiddleName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Contains the non-chosen or inherited name. Also known as a person's last name in the Western context. The order is implied by the order of appearance of the FamilyName elements in the XML document. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" name="FamilyName">
+        <xsd:annotation>
+          <xsd:documentation>Contains the non-chosen or inherited name. Also known as a person's last name in the Western context. The order is implied by the order of appearance of the FamilyName elements in the XML document. 
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+						Defines the order when multiple family names are used. 
+						Defines the order when multiple family names are used.
+						primary=”true” Specifies that this occurrence of familyName is primary. It would appear first when multiple familyNames are used.
+						primary=”false” Specifies that this occurrence of familyName is not primary.  It would appear after the primary familyName. When multiple ‘False’ primary familyNames are used, the order is implied.
+						primary=”undefined” Specifies that multiple familyNames do not apply. If multiple familyNames are used with this type, order is implied.
+					</xsd:documentation>
+              </xsd:annotation>
+              <xsd:attribute name="primary">
+                <xsd:annotation>
+                  <xsd:documentation>Defines the order when multiple family names are used. 
+Defines the order when multiple family names are used.
+primary=”true” Specifies that this occurrence of familyName is primary. It would appear first when multiple familyNames are used.
+primary=”false” Specifies that this occurrence of familyName is not primary.  It would appear after the primary familyName. When multiple ‘False’ primary familyNames are used, the order is implied.
+primary=”undefined” Specifies that multiple familyNames do not apply. If multiple familyNames are used with this type, order is implied.
+</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="true" />
+                    <xsd:enumeration value="false" />
+                    <xsd:enumeration value="undefined" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:attribute>
+              <xsd:attribute name="prefix" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>The aristocratic or other prefix for FamilyName.  [Example(s): de (as in de Witt), la (as in la Salle); van (as in van der Voss). ]
+					</xsd:documentation>
+                </xsd:annotation>
+              </xsd:attribute>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Affix">
+        <xsd:annotation>
+          <xsd:documentation>Contains the remaining parts of the PersonName as defined by the type attribute. 
+			</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+						Defines the context for the affix.
+						type=aristocraticTitle.
+						e.g. Baron, Graf, Earl, etc.
+						type=formOfAddress. 
+						Contains the Salutation, 
+						e.g. Mr., Mrs., Hon., Dr., Major, etc.
+						type=generation.
+						e.g. Sr., Jr., III (the third), etc.
+						type=qualification.
+						Contains the letters used to describe academic or other type qualifications held by a person and/or the distinctions conferred upon them. e.g. PhD, MD, CPA, MCSD, etc.
+					</xsd:documentation>
+              </xsd:annotation>
+              <xsd:attribute name="type" use="required">
+                <xsd:annotation>
+                  <xsd:documentation>Defines the context for the affix.
+type=aristocraticTitle.
+e.g. Baron, Graf, Earl, etc.
+type=formOfAddress. 
+Contains the Salutation, 
+e.g. Mr., Mrs., Hon., Dr., Major, etc.
+type=generation.
+ e.g. Sr., Jr., III (the third), etc.
+type=qualification.
+Contains the letters used to describe academic or other type qualifications held by a person and/or the distinctions conferred upon them. e.g. PhD, MD, CPA, MCSD, etc.
+</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="aristocraticTitle" />
+                    <xsd:enumeration value="formOfAddress" />
+                    <xsd:enumeration value="generation" />
+                    <xsd:enumeration value="qualification" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:attribute>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="AlternateScript">
+        <xsd:annotation>
+          <xsd:documentation>The same information as presented in the base elements, but represented in a different script. 
+[BusinessRule(s): AlternateScript elements should contain sub-elements parallel to the base structure, but in the alternate script designated by the script attribute. 2 sibling AlternateScript elements should not use the same script. ]
+[Example(s): A person’s name may be represented in the Latin alphabet in the base structure but represented in Japanese Katakana and/or Japanese Kanji script (or Arabic characters, Korean characters et al) by use of AlternateScript elements. ]
+			</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="FormattedName" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Contains, in one string, a fully formatted name with all of its pieces in their proper place. 
+[BusinessRule(s): This includes all of the necessary punctuation. This de-normalized form of the name cannot be easily parsed. The use of multiple occurrences are officially deprecated in this release and will be removed in a future version. ]
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="LegalName" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Used for legal documentation or other legal purposes. Contains, in one string, a fully formatted name with all of its pieces in their proper place. This includes all of the necessary punctuation. Extension to represent the worker's name. 
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="GivenName" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Contains the given or chosen name. Also known as a person's first name. If multiple givenNames are used, the order is implied. 
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="PreferredGivenName" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Contains the chosen name by which the person prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname. 
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="MiddleName" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Contains a person's middle name or initial. 
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="FamilyName">
+              <xsd:annotation>
+                <xsd:documentation>Contains the non-chosen or inherited name. Also known as a person's last name in the Western context. The order is implied by the order of appearance of the FamilyName elements in the XML document. 
+</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:simpleContent>
+                  <xsd:extension base="xsd:string">
+                    <xsd:attribute name="primary">
+                      <xsd:annotation>
+                        <xsd:documentation>Defines the order when multiple family names are used. 
+Defines the order when multiple family names are used.
+primary=”true” Specifies that this occurrence of familyName is primary. It would appear first when multiple familyNames are used.
+primary=”false” Specifies that this occurrence of familyName is not primary.  It would appear after the primary familyName. When multiple ‘False’ primary familyNames are used, the order is implied.
+primary=”undefined” Specifies that multiple familyNames do not apply. If multiple familyNames are used with this type, order is implied.
+</xsd:documentation>
+                      </xsd:annotation>
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:enumeration value="true" />
+                          <xsd:enumeration value="false" />
+                          <xsd:enumeration value="undefined" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:attribute>
+                    <xsd:attribute name="prefix" type="xsd:string">
+                      <xsd:annotation>
+                        <xsd:documentation>The aristocratic or other prefix for FamilyName. 
+[Example(s): de (as in de Witt), la (as in la Salle); van (as in van der Voss). ]
+</xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:attribute>
+                  </xsd:extension>
+                </xsd:simpleContent>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Affix">
+              <xsd:annotation>
+                <xsd:documentation>Contains the remaining parts of the PersonName as defined by the type attribute.</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:simpleContent>
+                  <xsd:extension base="xsd:string">
+                    <xsd:attribute name="type" use="required">
+                      <xsd:annotation>
+                        <xsd:documentation>Defines the context for the affix.
+type=aristocraticTitle.
+e.g. Baron, Graf, Earl, etc.
+type=formOfAddress. 
+Contains the Salutation, 
+e.g. Mr., Mrs., Hon., Dr., Major, etc.
+type=generation.
+ e.g. Sr., Jr., III (the third), etc.
+type=qualification.
+Contains the letters used to describe academic or other type qualifications held by a person and/or the distinctions conferred upon them. e.g. PhD, MD, CPA, MCSD, etc.
+</xsd:documentation>
+                      </xsd:annotation>
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:enumeration value="aristocraticTitle" />
+                          <xsd:enumeration value="formOfAddress" />
+                          <xsd:enumeration value="generation" />
+                          <xsd:enumeration value="qualification" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:attribute>
+                  </xsd:extension>
+                </xsd:simpleContent>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="script" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>A code identifying a character script used in the associated elements. A script is a set of graphic characters used for the written form of one or more languages. A script, as opposed to an arbitrary subset of characters, is defined in distinction to other scripts where readers of one script may be unable to read the individual character glyphs of another script. 
+[BusinessRule(s): This attribute contains an ISO 15924 code (4 letters). ]
+[Example(s): “Latn” for the Latin alphabet, “Hani” for Asian ideograph characters, and “Arab” for the Arabic alphabet. ]
+				</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="script" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>A code identifying a character script used in the associated elements. A script is a set of graphic characters used for the written form of one or more languages. A script, as opposed to an arbitrary subset of characters, is defined in distinction to other scripts where readers of one script may be unable to read the individual character glyphs of another script. 
+[BusinessRule(s): This attribute contains an ISO 15924 code (4 letters). ]
+[Example(s): “Latn” for the Latin alphabet, “Hani” for Asian ideograph characters, and “Arab” for the Arabic alphabet. ]
+</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:annotation>
+    <xsd:documentation>
+		"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+		Name: PostalAddress.xsd
+		Status: Recommendation
+		Date this version: 2007-04-15
+		Purpose: Defines the schema for Postal Address
+		Author(s): Paul Kiel, Kim Bartkus, CPO Workgroup
+		Documentation: PostalAddress.html
+		
+		Terms of license can be found in license.txt.
+		
+		Change History:
+		2005-01
+		As per Schema Design Guidelines, all default values have been removed.
+		
+		2008-02 Lon Pilot
+		Reformed DeliveryAddress to be required; created a choice containing AddressLine and the 
+		sequence comprising a parsed address line's components (Streetname, BuildingNumber, etc.).
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="PostalAddress" type="PostalAddressType">
+    <xsd:annotation>
+      <xsd:documentation>Describes a postal address used for delivery of mail. </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="PostalAddressType">
+    <xsd:annotation>
+      <xsd:documentation>Describes a postal address used for delivery of mail. 
+		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CountryCode">
+        <xsd:annotation>
+          <xsd:documentation>Contains the ISO 3166-1 two-character country code. 
+			</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Z]{2}" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="PostalCode" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Codes established by postal authorities for purposes of sorting and delivering mail. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Region" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Represents the State, Province, and/or County. Military addresses should be stored in multiple regions (hierarchy region from highest to most specific): 1 st region = APO (Army/Airforce Post Office); FPO (Fleet Post Office). 2 nd region = 2 letter designator for part of world (AE Œ Europe, AA Œ Americas) 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Municipality" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Represents the city, town, village, or hamlet. 
+			</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeliveryAddress">
+        <xsd:annotation>
+          <xsd:documentation>Contains one formatted address line with all of its pieces in their proper place. This includes all of the necessary punctuation. This de-normalized form of the delivery address cannot be easily parsed. AddressLine is used for delivery by the postal service. May contain the name or number of the building, house, and/or street. If the address is decomposed into StreetName and BuildingNumber, do not use AddressLine to store the address. Examples may include: Hancock Building; 5223 Oak Street; 213; East 23rd Avenue; P.O. Box 241; Suite 200. 
+			</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="AddressLine" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>AddressLine is used for delivery by the postal service. May contain the name or number of the building, house, and/or street. If the address is decomposed into StreetName and BuildingNumber, do not use AddressLine to store the address. Examples may include: Hancock Building; 5223 Oak Street; 213; East 23rd Avenue; P.O. Box 241; Suite 200. 
+			</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="StreetName" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>Contains the street name or number. This may be used for verification, building the address, or storing in a database. If the address is decomposed into StreetName, BuildingNumber and Unit, do not use AddressLine to duplicate that part of the address information. Examples may include: Oak Street; East 23rd Avenue. 
+			</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="BuildingNumber" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>This element is defined as a string to handle "numbers" such as 7A or 15/III. The term "BuildingNumber" was also used instead of HouseNumber so all types of buildings could apply (house, building, warehouse, tower, etc). This may be used for verification, building the address, or storing in a database. If the address is decomposed into StreetName, BuildingNumber and Unit, do not use AddressLine to duplicate that part of the address information. Examples may include: Hancock Building; 5223. 
+ 			</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Unit" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>Contains the Apartment, Suite, Unit, Room, Floor, Trailer, Level, Hanger, etc. This may be used for verification, building the address, or storing in a database. If the address is decomposed into StreetName, BuildingNumber and Unit, do not use AddressLine to duplicate that part of the address information. Examples may include: Apt. 124, Ste. 300, Upper, Hanger A. 
+			</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PostOfficeBox" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>Contains the Post Office Box. This may be used for verification, building the address, or storing in a database. Example: P.O. Box 241. 
+			</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="type">
+      <xsd:annotation>
+        <xsd:documentation>Defines if the postal address is a street address, military, or post office box.
+type = postOfficeBoxAddress
+type = streetAddress
+type = militaryAddress
+type  = undefined 
+			</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="postOfficeBoxAddress" />
+          <xsd:enumeration value="streetAddress" />
+          <xsd:enumeration value="militaryAddress" />
+          <xsd:enumeration value="undefined" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+			Name: ContactMethod.xsd
+			Status: Recommendation
+			Date this version: 2007-04-15
+			Purpose: Defines the schema for contact methods
+			Author(s): Don Simonson, Robert Half Int'l., CPO Workgroup
+			Documentation: ContactMethod.html
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType name="IABContactMethodType">
+    <xsd:annotation>
+      <xsd:documentation>IABContactMethodType is a structure allowing for the grouping of contact information data by usage, location, and availability. The IAB extension to the base HR-XML type allows for defining the IAB contact type atribute, as defined below.
+		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ContactMethodType">
+        <xsd:sequence>
+          <xsd:element ref="IABTypeOfContact">
+            <xsd:annotation>
+              <xsd:documentation>The specific type of contact represented in the data. Examples being Primary, Sales, and Technical.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element ref="PersonName">
+            <xsd:annotation>
+              <xsd:documentation>The person being contacted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Title" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The business title of the person.
+		</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="IABTypeOfContact" type="IABTypeOfContactType">
+    <xsd:annotation>
+      <xsd:documentation>The specific type of contact represented in the data. Examples being Primary, Sales, and Technical.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:simpleType name="IABTypeOfContactType">
+    <xsd:annotation>
+      <xsd:documentation>The specific type of contact represented in the data. Examples being Primary, Sales, and Technical.
+		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Primary" />
+      <xsd:enumeration value="Secondary" />
+      <xsd:enumeration value="Technical" />
+      <xsd:enumeration value="Sales" />
+      <xsd:enumeration value="Emergency" />
+      <xsd:enumeration value="Production" />
+      <xsd:enumeration value="Billing" />
+      <xsd:enumeration value="Account Executive" />
+      <xsd:enumeration value="Buyer" />
+      <xsd:enumeration value="Traffic" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:element name="Use" type="contactMethodUsePatternExtensionType">
+    <xsd:annotation>
+      <xsd:documentation>Describes the usage of the contact, such as "business", "businessDirect", or "personal". It does not include the device type.
+	</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Location" type="contactMethodLocationPatternExtensionType">
+    <xsd:annotation>
+      <xsd:documentation>Describes the general physical location of the contact information destination, such as "office", "home', or "onPerson".
+		</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="WhenAvailable" type="contactMethodWhenAvailableType">
+    <xsd:annotation>
+      <xsd:documentation>
+IABContactMethodType is a structure allowing for the grouping of contact information data by usage, location, and availability. The IAB extension to the base HR-XML type allows for defining the IAB contact type atribute, as defined below.
+		</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ContactMethodType">
+    <xsd:annotation>
+      <xsd:documentation>ContactMethodType is a structure allowing for the grouping of contact information data by usage, location, and availability.		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="Use">
+        <xsd:annotation>
+          <xsd:documentation>Describes the usage of the contact, such as "business", "businessDirect", or "personal". It does not include the device type.
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="Location">
+        <xsd:annotation>
+          <xsd:documentation>Describes the general physical location of the contact information destination, such as "office", "home', or "onPerson".
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="WhenAvailable">
+        <xsd:annotation>
+          <xsd:documentation>Text string suggesting an appropriate time frame when the use of the addresses in this ContactMethod is relevant. For example: 24x7, weekdays, or weekends.
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="Telephone">
+        <xsd:annotation>
+          <xsd:documentation>Voice Device TelcomNumber
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="Mobile">
+        <xsd:annotation>
+          <xsd:documentation>Mobile Device TelcomNumber
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="Fax">
+        <xsd:annotation>
+          <xsd:documentation>Facsimile Device TelcomNumber
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="Pager">
+        <xsd:annotation>
+          <xsd:documentation>Pager Device TelcomNumber
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="TTYTDD">
+        <xsd:annotation>
+          <xsd:documentation>TTY is the acronym for Teletypewriter. TDD is the acronym for Telecommunication Device for the Deaf. Both are devices of TelcomNumber.
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="InternetEmailAddress">
+        <xsd:annotation>
+          <xsd:documentation>Internet email address.
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="InternetWebAddress">
+        <xsd:annotation>
+          <xsd:documentation>Universal Resource Locator (URL) for a web site. Usually in the form http://www.hr-xml.org. This should include "http://".
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="PostalAddress">
+        <xsd:annotation>
+          <xsd:documentation>Describes a postal address used for delivery of mail. See PostalAddress specification for details. 
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="contactMethodUseType">
+    <xsd:annotation>
+      <xsd:documentation>Describes the usage of the contact, such as "business", "businessDirect", or "personal". It does not include the device type.
+		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="business" />
+      <xsd:enumeration value="businessDirect" />
+      <xsd:enumeration value="personal" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="contactMethodLocationType">
+    <xsd:annotation>
+      <xsd:documentation>Describes the general physical location of the contact information destination, such as "office", "home', or "onPerson".
+		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="office" />
+      <xsd:enumeration value="vehicle" />
+      <xsd:enumeration value="onPerson" />
+      <xsd:enumeration value="home" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="contactMethodWhenAvailableType">
+    <xsd:annotation>
+      <xsd:documentation>Text string suggesting an appropriate time frame when the use of the addresses in this ContactMethod is relevant. For example: 24x7, weekdays, or weekends.
+		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="contactMethodLocationPatternExtensionType">
+    <xsd:annotation>
+      <xsd:documentation>Extension to the enumerated list of locations allowing for any string value to be used.		</xsd:documentation>
+    </xsd:annotation>
+    <xsd:union memberTypes="contactMethodLocationType xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="contactMethodUsePatternExtensionType">
+    <xsd:annotation>
+      <xsd:documentation>Extension to the enumerated list of uses allowing for any string value to be used.			</xsd:documentation>
+    </xsd:annotation>
+    <xsd:union memberTypes="contactMethodUseType xsd:string" />
+  </xsd:simpleType>
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+			Name: TelcomNumber.xsd
+			Status: Recommendation
+			Date this version: 2007-04-15
+			Purpose: Schema for Telecommunications data.
+			Author(s): Don Simonson, Robert Half Int'l., CPO Workgroup
+			Documentation: ContactMethod.html
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:group name="TelcomNumberGroup">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="InternationalCountryCode">
+        <xsd:annotation>
+          <xsd:documentation>This is the ITU's country code that identifies a specific country, countries in an integrated numbering plan, or a specific geographic area. 
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="NationalNumber">
+        <xsd:annotation>
+          <xsd:documentation>National (Trunk) Number. This is the code used to indicate that the following numbers are for another AreaCityCode outside the Originating AreaCityCode, but within the originating country. This can usually be inferred from the TelcomCountryCode. It is included for those cases were derivation is not used. 
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="AreaCityCode">
+        <xsd:annotation>
+          <xsd:documentation>This defines either a numbering area within a country (or group of countries included in one integrated numbering plan or a specific geographic area) or network/service. 
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="SubscriberNumber">
+        <xsd:annotation>
+          <xsd:documentation>The number identifying a subscriber in a network or numbering area. The SubscriberNumber MUST contain at least one digit. The SubscriberNumber MAY contain hyphens, period, and spaces in addition to the digits. This number may also be known as the "local number". 
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="Extension">
+        <xsd:annotation>
+          <xsd:documentation>This may contain a PBX extension, a pager PIN, a fax sub-address, or other extended addressing information. 
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:element name="FormattedNumber" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>Formatted string. Contains a telecommunication number string representation. This de-normalized form cannot easily be parsed. When formatted number is present, the non-formatted number MUST not be present.
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="InternationalCountryCode" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>This is the ITU's country code that identifies a specific country, countries in an integrated numbering plan, or a specific geographic area. 
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="NationalNumber" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>National (Trunk) Number. This is the code used to indicate that the following numbers are for another AreaCityCode outside the Originating AreaCityCode, but within the originating country. This can usually be inferred from the TelcomCountryCode. It is included for those cases were derivation is not used. 
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AreaCityCode" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>This defines either a numbering area within a country (or group of countries included in one integrated numbering plan or a specific geographic area) or network/service. 
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SubscriberNumber" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The number identifying a subscriber in a network or numbering area. The SubscriberNumber MUST contain at least one digit. The SubscriberNumber MAY contain hyphens, period, and spaces in addition to the digits. This number may also be known as the "local number". 
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="TelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>The TelcomNumberType is used to store a telephone number. Telephone numbers can be used to address any device on the Public Switched Telephone Network. Such devices include voice telephones, facsimile machines, and pagers. The number may be either a formatted string or a -set of structured elements. Telephone, Fax, Pager, and TTYTDD elements in this standard are all of type TelcomNumberType.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice>
+      <xsd:element ref="FormattedNumber">
+        <xsd:annotation>
+          <xsd:documentation>Formatted string. Contains a telecommunication number string representation. This de-normalized form cannot easily be parsed. When formatted number is present, the non-formatted number MUST not be present.
+</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:group ref="TelcomNumberGroup" />
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:element name="Extension" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>This may contain a PBX extension, a pager PIN, a fax sub-address, or other extended addressing information. 
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Telephone" type="TelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>Base data type for [TelcomNumberType] structure. 
+</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Mobile" type="MobileTelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>Extension of telcomnumber type to accomodate additional mobile telephone information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Fax" type="TelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>Facsimile Device TelcomNumber</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Pager" type="TelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>Pager Device TelcomNumber</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TTYTDD" type="TelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>TTY is the acronym for Teletypewriter. TDD is the acronym for Telecommunication Device for the Deaf. Both are devices of TelcomNumber.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="MobileTelcomNumberType">
+    <xsd:annotation>
+      <xsd:documentation>MobileTelcomNumberType extends TelcomNumberType by adding an smsEnabled attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="TelcomNumberType">
+        <xsd:attribute name="smsEnabled" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>SMS (Short Message Service) is a service for sending messages of up to 160 characters (224 characters if using a 5-bit mode) to mobile phones that use Global System for Mobile (GSM) communication.This boolean elements determines if the contact method is sms enabled or not (True/False).
+</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+			Name: OnlineAddress.xsd
+			Status: Recommendation
+			Date this version: 2007-04-15
+			Purpose: Defines the schema for online addresses.
+			Author(s): Don Simonson, Robert Half Int'l., CPO Workgroup
+			Documentation: ContactMethod.html
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="InternetEmailAddress" type="InternetEmailAddressType">
+    <xsd:annotation>
+      <xsd:documentation>Internet email address.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:simpleType name="InternetEmailAddressType">
+    <xsd:annotation>
+      <xsd:documentation>Internet email address.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:element name="InternetWebAddress" type="InternetWebAddressType">
+    <xsd:annotation>
+      <xsd:documentation>Universal Resource Locator (URL) for a web site. Usually in the form http://www.hr-xml.org. This should include "http://".</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:simpleType name="InternetWebAddressType">
+    <xsd:annotation>
+      <xsd:documentation>Universal Resource Locator (URL) for a web site. Usually in the form http://www.hr-xml.org. This should include "http://".</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+			Name: EntityIdType.xsd
+			Status: Recommendation
+			Date this version: 2007-04-15
+			Purpose: Defines XSD for Entity Identifiers
+			Editor: Karl Brophey, Kim Bartkus,  CPO Workgroup
+			Documentation: EntityIdentifiers.html (IdentifierTypes.html)
+
+			Change History:
+			2008-02 Lon Pilot
+			Modified from HR-XML base to make validFrom and validTo xsd:date type attributes.
+			This fits with best practices from the HR-XML community (and is a change being made as part of
+			the HR-XML 3.0 release).
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType name="EntityIdType">
+    <xsd:annotation>
+      <xsd:documentation>Data Type used to represent any Entity Identifier. </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="IdValue">
+        <xsd:annotation>
+          <xsd:documentation>A sequence of characters that one or more systems use as an identifier for the given entity. This could be numeric, alpha, and may include punctuation. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+              <xsd:attribute name="name" type="xsd:string" use="optional">
+                <xsd:annotation>
+                  <xsd:documentation>A description of the type of identifier or the portion of an identifier that “IdValue” represents. If used, values should be determined by trading partner agreement.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:attribute>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="validFrom" type="xsd:date" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A method for “effective dating” identifiers. Use should be determined by trading partner agreement. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="validTo" type="xsd:date" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A method for “effective dating” identifiers. Use should be determined by trading partner agreement. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="idOwner" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>A description of who “owns” the identifier. This usually will be the company and/or system name that utilizes the given value(s) for uniqueness. Use should be by trading partner agreement.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+			Name: UserArea.xsd
+			Status: Recommendation
+			Date this version: 2007-04-15
+			Purpose: Defines the UserArea extension schema
+			Author(s):  Technical Steering Committee
+			Documentation: HRXMLExtension.html
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:annotation>
+    <xsd:documentation>The remainder of this file is specific to the IAB eBusiness initiative and is not based on the work of the HR-XML Consortium.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType name="IABPartnerInfoType">
+    <xsd:annotation>
+      <xsd:documentation>Structure containing partner information used to identify trading partners in a exchange scenario. Examples would be Advertiser, Agency, Billing Partner, and Publisher.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Role">
+        <xsd:annotation>
+          <xsd:documentation>The role the partner is playng in the context of the message.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Advertiser" />
+            <xsd:enumeration value="Agency" />
+            <xsd:enumeration value="Billing" />
+            <xsd:enumeration value="BuyingAgency" />
+            <xsd:enumeration value="CreativeAgency" />
+            <xsd:enumeration value="PlanningAgency" />
+            <xsd:enumeration value="Publisher" />
+            <xsd:enumeration value="Broker" />
+            <xsd:enumeration value="OtherPartner" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="PrimaryID" type="EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>The primary identifier of the partner. This should be a neutral third-party issued value such as a Guid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="OtherID" type="EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>A repeatable series of other system identities for the partner. This can be used to transmit system specific identifiers between partners.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Legal entity name of the partner (business name).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address" type="PostalAddressType">
+        <xsd:annotation>
+          <xsd:documentation>Address of the partner.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PrimaryContact" type="IABContactMethodType">
+        <xsd:annotation>
+          <xsd:documentation>Primary contact within the partner organization.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="OtherContacts" type="IABContactMethodType">
+        <xsd:annotation>
+          <xsd:documentation>Optional list of other contacts for within the partner organization.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="CurrencyCodeType">
+    <xsd:annotation>
+      <xsd:documentation>ISO 4217 - Representation of Currency and Funds.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[A-Z][A-Z][A-Z]" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="MonetaryType">
+    <xsd:annotation>
+      <xsd:documentation>A monetary value with explicit currency code information attached.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="currency" type="CurrencyCodeType" use="required">
+          <xsd:annotation>
+            <xsd:documentation>ISO 4217 - Representation of Currency and Funds.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="DiscountType">
+    <xsd:annotation>
+      <xsd:documentation>A discounting structure. Allows for specifying either a monetary discount or a percentage discount.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Description of the discount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:choice>
+        <xsd:element name="Percent" type="PercentageType">
+          <xsd:annotation>
+            <xsd:documentation>A percentage represented as a decimal value betwee 0 and 100 inclusive.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="Amount" type="MonetaryType">
+          <xsd:annotation>
+            <xsd:documentation>Monetary amount of the discount.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentType">
+    <xsd:annotation>
+      <xsd:documentation>Originating system's ID for this version of the document. During a 'conversation' between the buy and sell side this value should uniquely identify this version of the document. If Publisher sent proposal, should stay publisher ID. Use of 'name' attribute allows for additional system-ID mapping and identification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Description of the attachment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Link" type="InternetWebAddressType">
+        <xsd:annotation>
+          <xsd:documentation>Internet link to the attachment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="PercentageType">
+    <xsd:annotation>
+      <xsd:documentation>A percentage represented as a decimal value betwee 0 and 100 inclusive.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:minInclusive value="0" />
+      <xsd:maxInclusive value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="IABDateTimeType">
+    <xsd:annotation>
+      <xsd:documentation>Date time structure allowing for an optional time.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Date" type="xsd:date">
+        <xsd:annotation>
+          <xsd:documentation>A date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Time" type="xsd:time">
+        <xsd:annotation>
+          <xsd:documentation>A time value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="BaseTargetType">
+    <xsd:annotation>
+      <xsd:documentation>A targeting structure for use in defining campaign/media targeting.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ID" type="EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>Optional identifier of the target option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Type of target option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Value of the target option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GenericTargetType">
+    <xsd:annotation>
+      <xsd:documentation>An extended target type allowing for an additional category value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="BaseTargetType">
+        <xsd:sequence>
+          <xsd:element name="Category" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>Category associated with the target, such as Audience, Site, and Behavior.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="UnitType">
+    <xsd:annotation>
+      <xsd:documentation>Provides a metric for units wherever used in the standards. Can be either one of the enumerated values or a non-standard value (string).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice>
+      <xsd:element name="StandardValue" type="UnitTypeEnumeration">
+        <xsd:annotation>
+          <xsd:documentation>One of the standard enumerated values for Unit Type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NonStandardValue" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A non-standard value for Unit Type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:simpleType name="UnitTypeEnumeration">
+    <xsd:annotation>
+      <xsd:documentation>Enumeration of standard unit types used in the industry.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Impressions" />
+      <xsd:enumeration value="Clicks" />
+      <xsd:enumeration value="Actions" />
+      <xsd:enumeration value="Uniques" />
+      <xsd:enumeration value="ShareOfVoice" />
+      <xsd:enumeration value="Downloads" />
+      <xsd:enumeration value="Emails" />
+      <xsd:enumeration value="Leads" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="BaseUnit">
+    <xsd:annotation>
+      <xsd:documentation>Basic information about units, including type and number.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Type" type="UnitType">
+        <xsd:annotation>
+          <xsd:documentation>Type of units being detailed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Count" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>CPM, CPC, Sponsorship, etc</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="BaseCost">
+    <xsd:annotation>
+      <xsd:documentation>Basic gross and net cost information. Allows for includsion of gross only, net only, or both values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice>
+      <xsd:sequence>
+        <xsd:element ref="GrossCost" />
+        <xsd:element minOccurs="0" ref="NetCost" />
+      </xsd:sequence>
+      <xsd:element ref="NetCost" />
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:element name="GrossCost" type="xsd:decimal">
+    <xsd:annotation>
+      <xsd:documentation>The gross cost of an item.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="NetCost" type="xsd:decimal">
+    <xsd:annotation>
+      <xsd:documentation>The net cost of an item.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ZeroCostType">
+    <xsd:annotation>
+      <xsd:documentation>Provides a set of values to use to indicate zero cost types for items wherever used in the standards. Can be either one of the enumerated values or a non-standard value (string).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice>
+      <xsd:element name="StandardValue" type="ZeroCostTypeEnumeration">
+        <xsd:annotation>
+          <xsd:documentation>One of the standard enumerated values for zero cost.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NonStandardValue" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A non-standard value for zero cost.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:simpleType name="ZeroCostTypeEnumeration">
+    <xsd:annotation>
+      <xsd:documentation>Enumeration of standard zero cost item types used in the industry.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MakeGood" />
+      <xsd:enumeration value="AddedValue" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="CostMethodType">
+    <xsd:annotation>
+      <xsd:documentation>Provides a set of values to use to indicate the cost method for a line item. Can be either one of the enumerated values or a non-standard value (string).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice>
+      <xsd:element name="StandardValue" type="CostMethodEnumeration">
+        <xsd:annotation>
+          <xsd:documentation>One of the standard enumerated values for cost method.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NonStandardValue" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A non-standard value for cost method.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:simpleType name="CostMethodEnumeration">
+    <xsd:annotation>
+      <xsd:documentation>Enumeration of standard cost method types used in the industry.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="CPM" />
+      <xsd:enumeration value="CPC" />
+      <xsd:enumeration value="CPA" />
+      <xsd:enumeration value="Sponsorship" />
+      <xsd:enumeration value="RevenueShare" />
+      <xsd:enumeration value="CostPlusCPC" />
+      <xsd:enumeration value="CostPlusCPA" />
+      <xsd:enumeration value="CostPlusRevenueShare" />
+      <xsd:enumeration value="PercentOfPayout" />
+      <xsd:enumeration value="FlatFee" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:element name="ZeroCost" type="ZeroCostType" />
+</xsd:schema>

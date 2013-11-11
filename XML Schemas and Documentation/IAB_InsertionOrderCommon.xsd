@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp1 (http://www.altova.com) by Jeremy Fain (IAB) -->
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ns.iab.net" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_InsertionOrderCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="IAB_ContractCommon.xsd"/>
+	<xsd:include schemaLocation="IAB_OrderCommon.xsd"/>
+	<xsd:include schemaLocation="IAB_MessageCommon.xsd"/>
+	<xsd:element name="InsertionOrder" type="InsertionOrderType"/>
+	<xsd:complexType name="InsertionOrderType" mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="IABMessageBaseType">
+				<xsd:sequence>
+					<xsd:element name="PrimaryID" type="EntityIdType">
+						<xsd:annotation>
+							<xsd:documentation>Originating system's document ID.  If Publisher sent proposal, should stay publisher ID. Use of 'name' attribute allows for additional system-ID mapping and identification.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="OtherID" type="EntityIdType" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Additional document IDs for use by other systems. In this case, Agency and/or partner systems would attach its own document ID here.  Use of 'name' attribute allows for additional system-ID mapping and identification.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="OrderDetails" maxOccurs="unbounded"/>
+					<xsd:element ref="ContractDetails"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="IAB_MessageCommon.xsd" />
+  <xsd:include schemaLocation="IAB_ContractCommon.xsd" />
+  <xsd:include schemaLocation="IAB_OrderCommon.xsd" />
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_ProposalCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="Proposal" type="ProposalType" />
+  <xsd:complexType name="ProposalType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="IABMessageBaseType">
+        <xsd:sequence>
+          <xsd:element name="ExpirationDate" type="IABDateTimeType" />
+          <xsd:element maxOccurs="unbounded" name="ProposalDetails" type="OrderDetailsType" />
+          <xsd:element name="ProposedContract" type="ContractDetailsType" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

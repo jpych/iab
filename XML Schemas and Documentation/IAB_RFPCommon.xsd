@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp1 (http://www.altova.com) by Jeremy Fain (IAB) -->
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ns.iab.net" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_RFPCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="IAB_MessageCommon.xsd"/>
+	<xsd:include schemaLocation="IAB_ContractCommon.xsd"/>
+	<xsd:element name="RequestForProposal" type="RequestForProposalType">
+		<xsd:annotation>
+			<xsd:documentation>Root element for request for proposal communication</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="RequestForProposalType" mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="IABMessageBaseType">
+				<xsd:sequence>
+					<xsd:element ref="RFPDetails">
+						<xsd:annotation>
+							<xsd:documentation>Details of the requested media campaign</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="RFPResponseRequirements">
+						<xsd:annotation>
+							<xsd:documentation>Instructions for replying to the RFP</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="RFPDetails" type="RFPDetailsType"/>
+	<xsd:complexType name="RFPDetailsType">
+		<xsd:sequence>
+			<xsd:element name="Budget" type="MonetaryType">
+				<xsd:annotation>
+					<xsd:documentation>Budget that the publisher should build towards</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>Anticipated start date of campaign</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>Anticipated end date of campaign</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CampaignBrief">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Background" type="xsd:string"/>
+						<xsd:element name="Description" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>Can be used for a full description of the campign goals and publisher requests.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="GeographicConsiderations" type="xsd:string"/>
+						<xsd:element name="TargetAudience" type="xsd:string"/>
+						<xsd:element name="PrimarySuccessMetric" type="xsd:string"/>
+						<xsd:element name="AdditionalMetrics" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="DesiredPositioningNotes" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Attachments" type="AttachmentType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>The RFP can be submitted as an attachment as well or instead.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Goal" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>A generic object that can be used in repetition to state specific campaign goals and  the measurement of that goal.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Value" type="xsd:string"/>
+						<xsd:element name="Type" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Targeting" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Similar to Proposal Line Item Targeting - no industry standards exist for communicating targeting so this flexible framework can be used for providing text representations of the targeting being requested.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Audience" type="BaseTargetType" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="Context" type="BaseTargetType" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="Delivery" type="BaseTargetType" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="OtherTarget" type="GenericTargetType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Notes" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FlightExclusivityGuidelines" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PaymentTerms" type="IABPaymentTermsType" minOccurs="0"/>
+			<xsd:element name="BillingNotes" type="xsd:string" minOccurs="0"/>
+			<xsd:element ref="TermsAndConditions" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RFPResponseRequirements" type="RFPResponseRequirementsType"/>
+	<xsd:complexType name="RFPResponseRequirementsType">
+		<xsd:sequence>
+			<xsd:element name="DueDate" type="IABDateTimeType"/>
+			<xsd:element name="Format" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Excel spreadsheet, presentation, any notes on format of response.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Instructions" type="xsd:string"/>
+			<xsd:element name="DestinationSystem" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SelectionCriteria" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

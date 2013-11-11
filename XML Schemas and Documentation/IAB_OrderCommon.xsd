@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" xmlns:q1="http://ns.iab.net" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="IAB_LineItemCommon.xsd" />
+  <xsd:include schemaLocation="IAB_BillingCommon.xsd" />
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_OrderCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="OrderDetails" type="q1:OrderDetailsType">
+    <xsd:annotation>
+      <xsd:documentation>Element used to represent the overall proposal/insertion order properties.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="OrderDetailsType">
+    <xsd:sequence>
+      <xsd:element name="PrimaryID" type="q1:EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>Publisher line item ID</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="OtherID" type="q1:EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>Additional IDs from Agency and Partner systems.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Name of the order for identification purposes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDate" type="q1:IABDateTimeType">
+        <xsd:annotation>
+          <xsd:documentation>Start date of the overall order</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndDate" type="q1:IABDateTimeType">
+        <xsd:annotation>
+          <xsd:documentation>End date of the overall order</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Notes" type="xsd:string" />
+      <xsd:element maxOccurs="unbounded" name="TotalUnits">
+        <xsd:annotation>
+          <xsd:documentation>Summary of the total units being proposed/contracted</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:complexContent mixed="false">
+            <xsd:extension base="q1:BaseUnit" />
+          </xsd:complexContent>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" ref="q1:IsBillable" />
+      <xsd:element minOccurs="0" ref="q1:ZeroCost" />
+      <xsd:element maxOccurs="unbounded" name="LineItems" type="q1:LineItemType">
+        <xsd:annotation>
+          <xsd:documentation>All information on media details</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element default="1" name="InvoiceGroupNumber">
+        <xsd:annotation>
+          <xsd:documentation>Used when multiple campaigns and/or invoices are included in a single proposal. If only one invoice, value defaults to 1.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="1" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="OtherTerms">
+        <xsd:annotation>
+          <xsd:documentation>Can be included inline or as a reference to an external document</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:element name="TermsText" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Used for text version of Terms and Conditions if attachment is not used.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="TermsAttachment" type="q1:AttachmentType">
+              <xsd:annotation>
+                <xsd:documentation>File attachment of Terms and Conditions</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp1 (http://www.altova.com) by Jeremy Fain (IAB) -->
+<xsd:schema xmlns="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ns.iab.net" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_AdvertiserCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="IAB_Common.xsd"/>
+	<xsd:element name="IABAdvertiserInfo" type="IABAdvertiserInfoType"/>
+	<xsd:complexType name="IABAdvertiserInfoType">
+		<xsd:complexContent>
+			<xsd:extension base="IABPartnerInfoType">
+				<xsd:sequence>
+					<xsd:element name="BrandName" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>e.g. Ford - no standard industry lookup tables - for partners' use only</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Industry" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>e.g. Automotive - no standard industry lookup tables - for partners' use only</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ProductName" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>e.g. F150 - no standard industry lookup tables - for partners' use only</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

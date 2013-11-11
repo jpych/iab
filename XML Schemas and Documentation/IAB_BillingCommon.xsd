@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns="http://ns.iab.net" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="IAB_Common.xsd" />
+  <xsd:annotation>
+    <xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_BillingCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="IABBillingInfo" type="IABBillingInfoType" />
+  <xsd:complexType name="IABBillingInfoType">
+    <xsd:sequence>
+      <xsd:element name="PaymentTerms" type="IABPaymentTermsType" />
+      <xsd:element name="PaymentType" type="IABPaymentTypeEnumeratedType" />
+      <xsd:element name="BillingFrequency" type="xsd:string" />
+      <xsd:element name="Distribution" type="IABDistributionType" />
+      <xsd:element name="Basis">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Value" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Notes" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="AdServer" type="xsd:string" />
+      <xsd:element name="BillingStatisticsSource" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Billable numbers source e.g. Publisher, Third-Party, etc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BillingPartner" type="IABPartnerInfoType">
+        <xsd:annotation>
+          <xsd:documentation>Information on who to bill, where invoice comes from, etc</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Notes" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="IABPaymentTermsEnumeratedType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Advance" />
+      <xsd:enumeration value="Net15" />
+      <xsd:enumeration value="Net30" />
+      <xsd:enumeration value="Net60" />
+      <xsd:enumeration value="EndOfContract" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="IABPaymentTermsType">
+    <xsd:union memberTypes="IABPaymentTermsEnumeratedType xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="IABDistributionEnumeratedType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Straightline" />
+      <xsd:enumeration value="Prorated" />
+      <xsd:enumeration value="Weighted" />
+      <xsd:enumeration value="Scheduled" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="IABDistributionType">
+    <xsd:union memberTypes="IABDistributionEnumeratedType xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="IABPaymentTypeEnumeratedType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Cash" />
+      <xsd:enumeration value="Trade" />
+      <xsd:enumeration value="Other" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

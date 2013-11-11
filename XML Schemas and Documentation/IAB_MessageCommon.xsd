@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp1 (http://www.altova.com) by Jeremy Fain (IAB) -->
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns:ebm="http://ns.ebizformedia.com" xmlns="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ns.iab.net" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			"Copyright Interactive Advertising Bureau. All Rights Reserved. http://www.iab.net/ebiz"
+			Name: IAB_MessageCommon.xsd
+			Date this version: 2008-09-30
+			Author(s): Lon Pilot and IAB Ad Ops Council E-Business Working Group
+			
+			Change History:
+			NONE
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://ns.ebizformedia.com" schemaLocation="AAAA_Common.xsd"/>
+	<xsd:include schemaLocation="IAB_CampaignCommon.xsd"/>
+	<xsd:include schemaLocation="IAB_AdvertiserCommon.xsd"/>
+	<xsd:include schemaLocation="IAB_PublisherCommon.xsd"/>
+	<xsd:element name="IABMessageHeader" type="IABMessageHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>A header element to be present in all electronic communication for reference and continuity.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IABMessageHeaderType" mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="ebm:aaaaMessageType">
+				<xsd:sequence>
+					<xsd:element name="CreatingSystem" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Party that created the message being sent. For problem solving purposes.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CreatedDate" type="xsd:dateTime"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IABMessageBase" type="IABMessageBaseType"/>
+	<xsd:complexType name="IABMessageBaseType">
+		<xsd:sequence>
+			<xsd:element ref="IABMessageHeader"/>
+			<xsd:element name="Advertiser" type="IABAdvertiserInfoType">
+				<xsd:annotation>
+					<xsd:documentation>Includes all information, including contacts, brand and product, on proposal's advertiser.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Agency" type="IABPartnerInfoType" minOccurs="0" maxOccurs="3">
+				<xsd:annotation>
+					<xsd:documentation>Contains all information on agency including contact and role. Multiple agencies can be attached to a proposal.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Publisher" type="IABPublisherInfoType">
+				<xsd:annotation>
+					<xsd:documentation>Conations all information on publisher including contact and properties for proposal.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Partner" type="IABPartnerInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Used to add contact and role information for additional companies involved in the campaign/proposal.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="CampaignReferenceInfo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

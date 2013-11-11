@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xsd:schema xmlns:q3="http://ns.iab.net" xmlns="http://ns.iab.net" xmlns:q2="http://ns.iab.net" xmlns:q1="http://ns.iab.net" elementFormDefault="qualified" targetNamespace="http://ns.iab.net" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="IAB_Common.xsd" />
+  <xsd:annotation>
+    <xsd:documentation>
+		This file is a modified version of original work done by the HR-XML Consortium, as ammended on 2008-07 by Lon Pilot. 
+		Proper atribution is included where each type is defined. Licensing information for HR-XML components can be 
+		found in the file HRXMLlicense.txt.  All new material should be considered Copyrighted and All Rights Reserved by the Interactive Advertising Bureau www.iab.net/ebiz
+		
+		Change History:
+		2008-07-11: Switched from including ApplicationAcknowledgement.xsd to including IAB_Common.xsd.
+			    Changed to use IABContactMethodType instead of ContactMethodType.
+			    Removed dependence on ApplicationAcknowledgement schema by moving ExceptionType definition to here.
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:annotation>
+    <xsd:documentation>
+"Copyright  The HR-XML Consortium. All Rights Reserved. http://www.hr-xml.org"
+Name: Acknowledgement.xsd
+Status: Technical Note
+Date this version: 2007-04-15
+Purpose: Defines an Acknowledgement document reusing types within HR-XML's  ApplicationAcknowledgement schema. 
+Provides a simpler number of choices. Allows for Acknowledgement of Receipt without specifying any business processing results.
+
+</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="Acknowledgement" type="q1:SimpleAcknowledgementType">
+    <xsd:annotation>
+      <xsd:documentation>A simple message received acknowledgement indicating only transport and schema level validation issues. No business level validation is implied.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="SimpleAcknowledgementType">
+    <xsd:annotation>
+      <xsd:documentation>A simple application acknowledgement message structure.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ReceiptAcknowledged" type="q1:ReceiptAcknowledgedEnumType">
+        <xsd:annotation>
+          <xsd:documentation>Flag indicating receipt of the message.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UniqueMessageID" type="q1:EntityIdType">
+        <xsd:annotation>
+          <xsd:documentation>Unique message identifier of the message to which the response refers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Exception" type="q1:ExceptionType">
+        <xsd:annotation>
+          <xsd:documentation>Structure to hold any exceptions that occurred during message processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="ReceiptAcknowledgedEnumType">
+    <xsd:annotation>
+      <xsd:documentation>Flag indicating receipt of the message.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="true" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="ExceptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ExceptionIdentifier" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>This is an ID (or code) used by the organization generating the acknowledgement to identify the specific exception.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExceptionSeverity">
+        <xsd:annotation>
+          <xsd:documentation>How severe the exception is.  Fatal means system processed nothing.  Warning means system processed something, but perhaps incompletely.  Information means system processed everything, but a problem *may* occur that needs notification.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Fatal">
+              <xsd:annotation>
+                <xsd:documentation>Fatal means system processed nothing.  </xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Warning">
+              <xsd:annotation>
+                <xsd:documentation> Warning means system processed something, but perhaps incompletely.  </xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Information">
+              <xsd:annotation>
+                <xsd:documentation>Information means system processed everything, but a problem *may* occur that needs notification.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="ExceptionMessage" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The exception content message.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ExceptionScopeSchemaXPath" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The leve at which processing stops (within the entity).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="SubordinateEntityXPath" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The offending element(s) or attributes (inside the scope of ExceptionScopeSchemaXPath).  </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Followup">
+        <xsd:annotation>
+          <xsd:documentation>Indicates who is responsibile for correcting the exception.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="OrganizationId" type="q1:EntityIdType">
+              <xsd:annotation>
+                <xsd:documentation> Unique identifier for the organization. It may be an internal identifier assigned by the sender. 
+ </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="OrganizationName" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>The name by which an organization or enterprise is known as established under the laws of a country, state, province or ruling governmental body for the purpose of conducting business transactions. 
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="PersonName" type="q1:PersonNameType">
+              <xsd:annotation>
+                <xsd:documentation>The name of the person within the organization responsible for followup.
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="ContactInfo" type="q1:IABContactMethodType">
+              <xsd:annotation>
+                <xsd:documentation>Contains contact information for the person responsible for followup.
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="responsibleForFollowup">
+            <xsd:annotation>
+              <xsd:documentation>Indicates who is responsible for correcting the exception or whether a follow-up is required. 
+[Example(s): No follow-up needed, payload source organization, acknowledgement source organization. ]
+</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="No Followup Needed" />
+                <xsd:enumeration value="Payload Source Organization" />
+                <xsd:enumeration value="Acknowledgement Source Organization" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="AdditionalData">
+        <xsd:annotation>
+          <xsd:documentation>Additional information (in a name-value pair format).</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Description" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Describes the contextual information relating to a specific element. 
+[Example(s): Description defining an Organization's mission or purpose. Description of stock plan. Description of payment terms and conditions. ]
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Value" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>A numerical quantity that is assigned or determined by calculation or measurement. 
+[Synonym(s): Description, Quantity, Amount ]
+</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
